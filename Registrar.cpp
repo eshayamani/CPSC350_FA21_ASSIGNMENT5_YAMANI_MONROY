@@ -281,19 +281,16 @@ void Registrar::calculations(){//preforms caluclations for the beautiful output
 
   studentSize++;
 
-  //checks to see if uneven
-  medianPos = studentSize%2;
+    if (studentSize % 2 == 0) {
+        int medianPos = studentSize / 2;
+        int student_median = (medianArr[medianPos] + medianArr[medianPos-1]) / 2.0;
+        cout << "The median for student wait time is: " << student_median << endl;
+    }
+    else {
+        int student_median = medianArr[studentSize / 2];
+        cout << "The median for student wait time is: " << student_median << endl;
+    }
 
-  //if its an uneven list
-  if(medianPos == 1){
-    medianPos = (studentSize/2);
-    cout << "The median for student wait time is: " << medianArr[medianPos] << endl;
-  }
-  else{
-    medianPos = (studentSize/2);
-    median = ((medianArr[medianPos + 1] + medianArr[medianPos]) /2);
-    cout << "The median for student watitime: " << median << endl;
-  }
 
 //STUDENT LONGEST STUDENT WAIT TIME (already in order)-------------------------------------
 
