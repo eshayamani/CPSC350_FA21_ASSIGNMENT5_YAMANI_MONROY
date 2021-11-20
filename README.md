@@ -31,6 +31,7 @@ main.cpp
 4-  References:
 
 -> Project was completed by Esha and Katherine
+-> talked to joshua for list implementation help
 
 http://www.cplusplus.com/doc/tutorial/files/
 https://www.tutorialspoint.com/cplusplus-program-to-implement-sorted-array
