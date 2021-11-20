@@ -252,7 +252,7 @@ void Registrar::calculations(){//preforms caluclations for the beautiful output
 
   cout << "\nStudent Wait Time Stats"<<endl;
   for(int i = 0; i < studentCount; i++){
-    cout<<"Value: "<<arrStudent[i]->getWaitTime()<<" ";
+   // cout<<"Value: "<<arrStudent[i]->getWaitTime()<<" ";
   }
   cout<<endl;
   cout << "The mean of student wait times is: " << waitTimeSum << endl;
