@@ -23,26 +23,28 @@ class ListNode{
    ListNode *prev;
 
 
-   ListNode();//default constructor
+   ListNode();//default
    ListNode(T *d);//overloaded --> dont think i need
    ~ListNode(); // destructor
 };
 
-//default constructor
-template <class T>
-ListNode<T>::ListNode(){}
 
-//overload constructor
 template <class T>
-ListNode<T>::ListNode(T *d){
+ListNode<T>::ListNode(){
+  //default
+}
+
+
+template <class T>
+ListNode<T>::ListNode(T *d){ //overloaded
   data = d;
   next = NULL;
   prev = NULL;
 }
 
-//destructor
+
 template <class T>
-ListNode<T>::~ListNode(){
+ListNode<T>::~ListNode(){//destructor
   next = NULL;
   prev = NULL;
 }
@@ -51,39 +53,39 @@ template <class T>
 
 class GenDoublyLinkedList{
   private:
-    ListNode<T> *front; //pointer to the node in the front
-    ListNode<T> *back; //pointer to the node in the back
-    unsigned int size; //size of the DoublyLinkedList
+    ListNode<T> *front; //pointer to front node
+    ListNode<T> *back; //pointer to back node
+    unsigned int size; //size
 
   public:
     GenDoublyLinkedList(); //constructor
     ~GenDoublyLinkedList(); //destructor
 
-    void insertFront(T *d); //insert node to front
-    void insertBack(T *d); //insert node to back
-    T* removeFront(); //removes and returns node in the front
-    T* removeBack(); //removes and returns node in the back
-    T* peek(); //returns the node in the front
-    T* deletePos(T *pos); //delete and returns node at certain position
-    int find(T *d); //finds and returns the position of a node
+    void insertFront(T *d); //insert to front
+    void insertBack(T *d); //insert to back
+    T* removeFront(); //removes and returns front
+    T* removeBack(); //removes and returns  back
+    T* peek(); //returns the front w/o deleting
+    T* deletePos(T *pos); //delete and returns at certain position
+    int find(T *d); //finds and returns the position of specific node
 
-    bool isEmpty(); //checks if list is empty
-    void printList(); //prints the list
-    unsigned int getSize(); //returns the size of list
+    bool isEmpty(); //checks if empty
+    void printList(); //prints out list
+    unsigned int getSize(); //returns size
 };
 
-//default constructor
+
 template<class T>
-GenDoublyLinkedList<T>::GenDoublyLinkedList(){
+GenDoublyLinkedList<T>::GenDoublyLinkedList(){//default
   size = 0;
   front = NULL;
   back = NULL;
 }
 
-//destructor
+
 template<class T>
-GenDoublyLinkedList<T>::~GenDoublyLinkedList(){
-  //iterate through the list
+GenDoublyLinkedList<T>::~GenDoublyLinkedList(){ // destructor
+  //iterates through the list
   while (front->next != front)
 	{
 		ListNode<T>* curr = front->next;
@@ -95,16 +97,16 @@ GenDoublyLinkedList<T>::~GenDoublyLinkedList(){
 }
 
 
-//inserts a node to the front
+
 template<class T>
-void GenDoublyLinkedList<T>::insertFront(T *d){
+void GenDoublyLinkedList<T>::insertFront(T *d){// inserts to the front
   ListNode<T> *node = new ListNode<T>(d);
 
   if(isEmpty()){
-    //the list is now empty
+    //when list is empty
     back = node;
-  }else{
-    //not empty
+  }
+  else{
     front->prev = node;
     node->next = front;
   }
@@ -112,48 +114,51 @@ void GenDoublyLinkedList<T>::insertFront(T *d){
   size++;
 }
 
-//removes the node from the front of the list
+
 template<class T>
-T* GenDoublyLinkedList<T>::removeFront(){
+T* GenDoublyLinkedList<T>::removeFront(){//removes from the front
   T *temp;
   if(isEmpty()){
+    //when list is empty
     cout << "List empty" << endl;
-  }else{
-    ListNode<T> *ft = front;
+  }
+  else{
+    ListNode<T> *current = front;
 
     if(front->next == NULL){
-      //only one element in the list
+      //when just one
       back = NULL;
-    }else{
-      //more than one element in the list
+    }
+    else{
       front->next->prev = NULL;
     }
     front = front->next;
-    temp = ft->data;
-    ft->next = NULL;
-    delete ft;
+    temp = current->data;
+    current->next = NULL;
+    delete current;
     size--;
   }
   return temp;
 }
 
-//returns the data stored in the front but doesnt remove
+
 template<class T>
-T* GenDoublyLinkedList<T>::peek(){
+T* GenDoublyLinkedList<T>::peek(){//returns front without deleting
   if(isEmpty()){
+    //when empty
     cout << "Linked List is empty" << endl;
   }else{
     return front->data;
   }
 }
 
-//inserts node to the back of the list
+
 template<class T>
-void GenDoublyLinkedList<T>::insertBack(T *d){
+void GenDoublyLinkedList<T>::insertBack(T *d){//inserts to back
   ListNode<T> *node = new ListNode<T>(d);
 
   if(isEmpty()){
-    //empty list
+    //when empty
     front = node;
   }else{
     back->next = node;
@@ -163,36 +168,40 @@ void GenDoublyLinkedList<T>::insertBack(T *d){
   size++;
 }
 
-//removes the node at the back of the list
+
 template<class T>
-T* GenDoublyLinkedList<T>::removeBack(){
+T* GenDoublyLinkedList<T>::removeBack(){ // removes back
   T *temp = new ListNode<T>;
   if(isEmpty()){
+    //when list is empty
     cout << "List is empty" << endl;
-  }else{
-    ListNode<T> *bk = back;
+  }
+  else{
+    ListNode<T> *current = back;
 
     if(front->next == NULL){
-      //only one element in the list
+      //only one thing in list
       front = NULL;
-    }else{
-      //more than one element in the list
+    }
+    else{
+
       back->prev->next = NULL;
     }
     back = back->prev;
-    temp = bk->data;
-    bk->prev = NULL;
-    delete bk;
+    temp = current->data;
+    current->prev = NULL;
+    delete current;
     size--;
 
   }
   return temp;
 }
 
-//deletes node at a certain position
+
 template<class T>
-T* GenDoublyLinkedList<T>::deletePos(T *d){
+T* GenDoublyLinkedList<T>::deletePos(T *d){ // deletes at current pos
   if(isEmpty()){
+    //when list is empty
     cout << "List is empty" << endl;
   }else{
     ListNode<T> *curr = front;
@@ -203,18 +212,20 @@ T* GenDoublyLinkedList<T>::deletePos(T *d){
       if(curr == NULL){
         return NULL;
       }
-      //if we get to this point, we found the node to be removed
+      //found thing to remove
 
       if(curr == front){
         front = curr->next;
       }
       else{
-        //its not the front, its in between
+        //when in b/w
         curr->prev->next = curr->next;
 
-      }if(curr == back){
+      }
+      if(curr == back){
         back = curr->prev;
-      }else{
+      }
+      else{
         curr->next->prev = curr->prev;
       }
 
@@ -227,9 +238,9 @@ T* GenDoublyLinkedList<T>::deletePos(T *d){
   }
 }
 
-//finds the position of a data
+
 template<class T>
-int GenDoublyLinkedList<T>::find(T *d){
+int GenDoublyLinkedList<T>::find(T *d){ // finds pos
   if(isEmpty()){
     cout << "List is empty" << endl;
   }else{
@@ -245,16 +256,16 @@ int GenDoublyLinkedList<T>::find(T *d){
       }
     }
 
-    if(curr == NULL){ //did not find the value we want
+    if(curr == NULL){ //not found
       idx = -1;
     }
     return idx;
   }
 }
 
-//returns if the list is empty
+
 template<class T>
-bool GenDoublyLinkedList<T>::isEmpty(){
+bool GenDoublyLinkedList<T>::isEmpty(){// when list is empty
   if(size == 0){
     return true;
   }
@@ -263,9 +274,9 @@ bool GenDoublyLinkedList<T>::isEmpty(){
   }
 }
 
-//prints list
+
 template<class T>
-void GenDoublyLinkedList<T>::printList(){
+void GenDoublyLinkedList<T>::printList(){ // prints list
   ListNode<T> *curr = front;
 
   while(curr != NULL){
@@ -274,9 +285,9 @@ void GenDoublyLinkedList<T>::printList(){
   }
 }
 
-//returns the size
+
 template<class T>
-unsigned int GenDoublyLinkedList<T>::getSize(){
+unsigned int GenDoublyLinkedList<T>::getSize(){ // returns size
   return size;
 }
 
@@ -284,77 +295,71 @@ template <class T>
 
 class GenQueue{
   public:
-    GenQueue(); //default constructor
-    GenQueue(int maxSize); //overload constructor
+    GenQueue(); //default
+    GenQueue(int maxSize); //overloaded
     ~GenQueue(); //destructor
 
-    //core functions
-    void insert(T *d); //inserts element to queue to the back
-    T* remove(); //removes element from the front
 
-    //aux functions
-    T* peek(); //returns the element in the front
-    bool isEmpty(); //returns if the queue is empty
-    int getSize(); //returns size of the queue
+    void insert(T *d); //inserts to back of Q
+    T* remove(); //removes from front of Q
+    T* peek(); //returns front w/o deleting
+    bool isEmpty(); //returns if empty
+    int getSize(); //returns size
+    int front;
+    int rear;
+    int numElements; //stuff in Q
 
-    //var
-    int front; //aka front
-    int rear; //aka tail
-    int numElements; //number of elements in the queue
-
-    GenDoublyLinkedList<T> *myQueue; //queue
+    GenDoublyLinkedList<T> *myQueue; //Q
 };
 
 
-//default constructor
+
 template <class T>
-GenQueue<T>::GenQueue(){
+GenQueue<T>::GenQueue(){ // default
   myQueue = new GenDoublyLinkedList<T>();
   front = 0;
   rear = -1;
   numElements = 0;
 }
 
-//overload constructor
+
 template<class T>
-GenQueue<T>::GenQueue(int maxSize){
+GenQueue<T>::GenQueue(int maxSize){ //overloaded
   myQueue = new GenDoublyLinkedList<T>();
   front = 0;
   rear = -1;
   numElements = 0;
 }
 
-//destructor
+
 template<class T>
-GenQueue<T>::~GenQueue(){
+GenQueue<T>::~GenQueue(){//destructor
   delete [] myQueue;
 }
 
-//inserting element into the queue
-template<class T>
-void GenQueue<T>::insert(T *d){
 
+template<class T>
+void GenQueue<T>::insert(T *d){ // insert to Q
   myQueue->insertBack(d);
   numElements++;
 }
 
-//removing element from the queue
-template<class T>
-T* GenQueue<T>::remove(){
 
+template<class T>
+T* GenQueue<T>::remove(){//removes from Q
   numElements--;
   return myQueue->removeFront();
 }
 
-//returning the first element in the queue but does not remove
+
 template<class T>
-T* GenQueue<T>::peek(){
+T* GenQueue<T>::peek(){//returns front without deleting
   return myQueue->peek();
 }
 
-//returns is the queue is empty
+
 template<class T>
-bool GenQueue<T>::isEmpty(){
+bool GenQueue<T>::isEmpty(){ // checks if empty
   if(numElements == 0){
     return true;
   }else{
@@ -362,11 +367,9 @@ bool GenQueue<T>::isEmpty(){
   }
 }
 
-//returns the size of the queue
 template<class T>
-int GenQueue<T>::getSize(){
+int GenQueue<T>::getSize(){ //returns size
   return numElements;
 }
-
 
 #endif
