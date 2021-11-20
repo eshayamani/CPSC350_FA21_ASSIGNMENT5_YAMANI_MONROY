@@ -5,7 +5,7 @@
 //Assignment 5
 
 //TEMPLATE CLASS
-//TEMPLATE CLASS
+
 
 #ifndef GENQUEUE_H
 #define GENQUEUE_H
