@@ -38,7 +38,5 @@ public:
 template<class T>
 ListInterface<T>::~ListInterface() = default;
 
-template<class T>
-
 
 #endif
